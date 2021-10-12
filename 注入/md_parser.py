@@ -18,10 +18,10 @@ if __name__ == '__main__':
                 with open(path, 'wb') as s:
                     s.write(base64.decodebytes(bytes(base_img, encoding='utf-8')))
                 line = '<img src="'+path + '" alt="' + path + '" style="zoom:50%;" align="left"/>'
-                with open('SQL注入/new.md', 'a') as n:
+                with open('SQL注入/SQL注入.md', 'a') as n:
                     n.write(line)
             elif line:
-                with open('SQL注入/new.md', 'a') as n:
+                with open('SQL注入/SQL注入.md', 'a') as n:
                     n.write(line)
             else:
                 break
