@@ -310,7 +310,7 @@ docker搭建：https://hub.docker.com/r/webgoat/goatandwolf
 
 ### 2.2.1 低难度
 
-<img src="/image-20211010220901163.png" alt="image-20211010220901163" style="zoom:40%;" align="left"/>
+<img src="https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010220901163.png" alt="image-20211010220901163" style="zoom:40%;" align="left"/>
 
 <img src="/image-20211010221053957.png" alt="image-20211010221053957" style="zoom:40%;" align="left"/>
 
