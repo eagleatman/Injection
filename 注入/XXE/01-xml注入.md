@@ -227,7 +227,7 @@ XML规范定义了5个"预定义实体"来表示特殊字符. XML也允许在每
 > `但可以在同级别中被当做标记语言调用`
 > `外部参数实体不受此限制`
 
-<img src="/image-20211010212008863.png" alt="image-20211010212008863" style="zoom:50%;" align="left"/>
+<img src="../media/image-20211010212008863.png" alt="image-20211010212008863" style="zoom:50%;" align="left"/>
 
 <img src="/image-20211010212026824.png" alt="image-20211010212026824" style="zoom:50%;" align="left"/>
 
