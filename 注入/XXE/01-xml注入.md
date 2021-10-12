@@ -226,7 +226,7 @@ XML规范定义了5个"预定义实体"来表示特殊字符. XML也允许在每
 > ``在DTD内部子集中的参数实体调用不能混掺到标记语言中，``
 > `但可以在同级别中被当做标记语言调用`
 > `外部参数实体不受此限制`
-
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212008863.png)
 <img src="../media/image-20211010212008863.png" alt="image-20211010212008863" style="zoom:50%;" align="left"/>
 
 <img src="/image-20211010212026824.png" alt="image-20211010212026824" style="zoom:50%;" align="left"/>
