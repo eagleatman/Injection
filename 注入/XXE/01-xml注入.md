@@ -227,19 +227,19 @@ XML规范定义了5个"预定义实体"来表示特殊字符. XML也允许在每
 > `但可以在同级别中被当做标记语言调用`
 > `外部参数实体不受此限制`
 ![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212008863.png)
-<img src="../media/image-20211010212008863.png" alt="image-20211010212008863" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212008863.png
 
-<img src="/image-20211010212026824.png" alt="image-20211010212026824" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212026824.png
 
 ### 1.5.5 不同程序对外部实体的支持
 
 > 不同程序支持的协议
 
-<img src="/image-20211010194614488.png" alt="image-20211010194614488" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010194614488.png
 
 > PHP不同协议所需要的插件
 
-<img src="/image-20211010194647980.png" alt="image-20211010194647980" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010194647980.png
 
 ### 1.5.6 XML基本格式与基本语法
 
@@ -264,7 +264,7 @@ XML规范定义了5个"预定义实体"来表示特殊字符. XML也允许在每
 </bookstore> 			
 ~~~
 
-<img src="/image-20211010192648974.png" alt="image-20211010192648974" style="zoom: 40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010192648974.png
 
 
 
@@ -278,27 +278,27 @@ https://github.com/c0ny1/xxe-lab
 
 ### 2.1.1 Brupsuite 自带工具burp collaborator client测试 
 
-<img src="/image-20211010212324675.png" alt="image-20211010212324675" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212324675.png
 
-<img src="/image-20211010212546895.png" alt="image-20211010212546895" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212546895.png
 
 ### 2.1.2 使用free.beeceptor.com进一步测试
 
-<img src="/image-20211010212419734.png" alt="image-20211010212419734" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212419734.png
 
-<img src="/image-20211010212809168.png" alt="image-20211010212809168" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212809168.png
 
 ### 2.1.3 读取带有特殊字符文件的方法，base64编码
 
-<img src="/image-20211010212923669.png" alt="image-20211010212923669" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010212923669.png
 
 ### 2.1.4 无回显数据外带
 
-<img src="/image-20211010213233271.png" alt="image-20211010213233271" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010213233271.png
 
-<img src="/image-20211010213313178.png" alt="image-20211010213313178" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010213313178.png
 
-<img src="/image-20211010213351552.png" alt="image-20211010213351552" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010213351552.png
 
 ## 2.2 JAVA
 
@@ -310,25 +310,25 @@ docker搭建：https://hub.docker.com/r/webgoat/goatandwolf
 
 ### 2.2.1 低难度
 
-<img src="https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010220901163.png" alt="image-20211010220901163" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010220901163.png
 
-<img src="/image-20211010221053957.png" alt="image-20211010221053957" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010221053957.png
 
 
 
 ### 2.2.2 中难度
 
-<img src="/image-20211010221454544.png" alt="image-20211010221454544" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010221454544.png
 
-<img src="/image-20211010221732259.png" alt="image-20211010221732259" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010221732259.png
 
 
 
-<img src="/image-20211010221841386.png" alt="image-20211010221841386" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010221841386.png
 
-<img src="/image-20211010222121094.png" alt="image-20211010222121094" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010222121094.png
 
-<img src="/image-20211010222219900-3875741.png" alt="image-20211010222219900" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010222219900-3875741.png
 
 ### 2.2.3 高难度
 
@@ -336,7 +336,7 @@ docker搭建：https://hub.docker.com/r/webgoat/goatandwolf
 
 
 
-<img src="/image-20211010214630900.png" alt="image-20211010214630900" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010214630900.png
 
 ~~~xml
 # attack.dtd
@@ -348,15 +348,15 @@ docker搭建：https://hub.docker.com/r/webgoat/goatandwolf
 
 
 
-<img src="/image-20211010214853316.png" alt="image-20211010214853316" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010214853316.png
 
-<img src="/image-20211010214953483.png" alt="image-20211010214953483" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010214953483.png
 
-<img src="/image-20211010215206038.png" alt="image-20211010215206038" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010215206038.png
 
 
 
-<img src="/image-20211010215507354.png" alt="image-20211010215507354" style="zoom:40%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/XXE/media/image-20211010215507354.png
 
 # 3. 高级用法
 
