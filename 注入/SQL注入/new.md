@@ -78,33 +78,33 @@ id=1 or 1=1 ==> select * from 表名 where id=1 or 1=1;（注入后）
 
 内联式注入
 
-<img src="SQL注入/media/1634051626609854000777.png" alt="SQL注入/media/1634051626609854000777.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626609854000777.png)
 ↓
 
-<img src="SQL注入/media/1634051626613869000490.png" alt="SQL注入/media/1634051626613869000490.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626613869000490.png)
 ↓
 
-<img src="SQL注入/media/1634051626616334000730.png" alt="SQL注入/media/1634051626616334000730.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626616334000730.png)
 终止式注入
 
-<img src="SQL注入/media/1634051626617746000643.png" alt="SQL注入/media/1634051626617746000643.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626617746000643.png)
 ↓
 
-<img src="SQL注入/media/1634051626618598000540.png" alt="SQL注入/media/1634051626618598000540.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626618598000540.png)
 ↓
 
-<img src="SQL注入/media/1634051626627957000807.png" alt="SQL注入/media/1634051626627957000807.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626627957000807.png)
 # SQL注入万能密码
 
 正常情况下的登录验证语句
 
-<img src="SQL注入/media/1634051626632377000146.png" alt="SQL注入/media/1634051626632377000146.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626632377000146.png)
 根据sql注入原理使用万能密码
 
 ```sql
 $user = admin' or 1=1#
 ```
-<img src="SQL注入/media/1634051626639431000283.png" alt="SQL注入/media/1634051626639431000283.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626639431000283.png)
 脚本语言无法理解SQL语句，两者对查询语句处理不一致导致SQL注入，篡改了SQL语句原本逻辑，如上图。
 
 ## 常用万能密码
@@ -181,7 +181,7 @@ PS：联合查询时记得把前面的查询为空
 
 下图说明第2、3字段可回显
 
-<img src="SQL注入/media/1634051626650780000301.png" alt="SQL注入/media/1634051626650780000301.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626650780000301.png)
 ## **判断数据库信息**
 
 在回显位置插入数据库内置函数
@@ -194,7 +194,7 @@ PS：联合查询时记得把前面的查询为空
 
    [www.xxx.com/xxx.php?](http://www.xxx.com/xxx.php?) id=-2’%20union%20select%201,2,user()#
 
-<img src="SQL注入/media/1634051626652538000944.png" alt="SQL注入/media/1634051626652538000944.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626652538000944.png)
 ## **查询数据**
 
 mysql>5.0版本中，information_schema这这个数据库中保存了MySQL服务器所有数据库的信息。如数据库名，数据表，表里的数据类型与访问权限等（这台MySQL服务器上，到底有哪些数据库、各个数据库有哪些表，每张表的字段类型是什么，各个数据库要什么权限才能访问，等等信息都保存在information_schema里面）。
@@ -214,7 +214,7 @@ information_schema的表columns中的列column_name记录了所有数据库的�
 id=-2'%20union%20select%201,2,group_concat(table_name)%20from%20information_schema.tables%20where%20
 table_schema=database()#
 ```
-<img src="SQL注入/media/1634051626657809000369.png" alt="SQL注入/media/1634051626657809000369.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626657809000369.png)
 
 # SQL注入-联合查询
 
@@ -232,9 +232,9 @@ UNION操作符用于合并两个或多个SELECT语句的结果集，而且UNION�
 4. Union语句可以填充查询结果，并且额外执行一次查询
 5. 只有最后一个SELECT子句允许有ORDER BY或LIMIT
 
-<img src="SQL注入/media/1634051626663278000724.png" alt="SQL注入/media/1634051626663278000724.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626663278000724.png)
 那么为了确定回显位置，我们需要第一条查询结果为空，才能将我们填充的数字显示在页面上，所以我们使where限制的条件为空即可。
-<img src="SQL注入/media/1634051626667120000838.png" alt="SQL注入/media/1634051626667120000838.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626667120000838.png)
 已知comment_id=-5的记录是不存在的，所以我们填写的数字将填充显示位。
 
 ## 常用内置函数
@@ -303,7 +303,7 @@ sql-labs第五关对应报错注入，注入语句如下：
 ?id=1' and updatexml(1,concat(0x7c,(select username from users limit 0,1),0x7c),1)%23
 ```
 注入效果如下：
-<img src="SQL注入/media/1634051626679108000220.png" alt="SQL注入/media/1634051626679108000220.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626679108000220.png)
 ## **其他报错注入**
 
 1. floor() 语句:and (select 1 from (select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x)a);
@@ -405,13 +405,13 @@ ASCII占一字节，GBK 占两字节，MYSQL默认字符集是GBK等宽字节字
 1. 使用不安全的编码
 2. 对特殊符号进行转义（在mysql中，用于转义的函数有 addslashes，mysql_real_escape_string ， mysql_escape_string等）
 
-<img src="SQL注入/media/1634051626696619000704.png" alt="SQL注入/media/1634051626696619000704.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626696619000704.png)
 单引号被转义
 
-<img src="SQL注入/media/1634051626699272000383.png" alt="SQL注入/media/1634051626699272000383.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626699272000383.png)
 利用宽字节缺陷绕过转义
 
-<img src="SQL注入/media/1634051626700627000919.png" alt="SQL注入/media/1634051626700627000919.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626700627000919.png)
 sql-labs第32关对应宽字节注入，payload如下：
 
 ```sql
@@ -427,7 +427,7 @@ sql-labs第32关对应宽字节注入，payload如下：
 
 防御者可能在用户输入恶意数据时对其中的特殊字符进行了转义处理，但在恶意数据插入到数据库时被处理的数据又被还原并存储在数据库中，当Web程序调用存储在数据库中的恶意数据并执行SQL查询时，就发生了SQL二次注入。
 
-<img src="SQL注入/media/1634051626704903000399.png" alt="SQL注入/media/1634051626704903000399.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626704903000399.png)
 ## 二次注入步骤
 
 **第一步：插入恶意数据**
@@ -442,14 +442,14 @@ sql-labs第32关对应宽字节注入，payload如下：
 
 二次注入可以通过注册和登录功能来实现，先注册恶意账号”admin'#”，密码是123，如下：
 
-<img src="SQL注入/media/1634051626709094000704.png" alt="SQL注入/media/1634051626709094000704.png" style="zoom:50%;" align="left"/>
-<img src="SQL注入/media/1634051626710353000312.png" alt="SQL注入/media/1634051626710353000312.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626709094000704.png)
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626710353000312.png)
 登录恶意账号并修改密码为123456，如下：
 
-<img src="SQL注入/media/1634051626713089000329.png" alt="SQL注入/media/1634051626713089000329.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626713089000329.png)
 此时从数据库中查找的用户名是“admin'#”，从数据库读取时并不会进行转义，所以最后修改的是admin的密码
 
-<img src="SQL注入/media/1634051626714858000334.png" alt="SQL注入/media/1634051626714858000334.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626714858000334.png)
 
 
 
@@ -536,7 +536,7 @@ sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现�
 
 **以下为常用tamper脚本列表：**
 
-<img src="SQL注入/media/1634051626730525000858.png" alt="SQL注入/media/1634051626730525000858.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626730525000858.png)
 # SQL注入高级用法
 
 ## 提权
@@ -560,7 +560,7 @@ outfile适合写入一句话木马，语句如下：
 ```
 * secure-file-priv 的限制
 
-<img src="SQL注入/media/1634051626736010000842.png" alt="SQL注入/media/1634051626736010000842.png" style="zoom:50%;" align="left"/>
+![image](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/SQL%E6%B3%A8%E5%85%A5/media/1634051626736010000842.png)
 ## WAF绕过
 
 1. 应对简单的非迭代的将select、or等关键字替换为空字符串的防御
