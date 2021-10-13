@@ -19,7 +19,7 @@ select  * from test where id=$id 攻击者可以利用这个$id 变量做文章�
 
 &emsp;&emsp;这里举例说明一个CMS的漏洞产生逆向回溯SQL注入。如下，cms的整体结构：
 
-![img](./media/1.png)
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/media/1.png)
 
 &emsp;&emsp;其中存在一个SQL注入的拦截方法：
 
@@ -64,11 +64,11 @@ function CS_Request($pi_strName, $pi_Def = "", $pi_iType = CS_TXT)//拦截方法
 
  &emsp;&emsp;可以从代码看到，只要在代码中调用了此方法，基本无法注入，现在的关键是所有的输入都进行了拦截器的调用吗，这里就需要对输入点进行搜索，这里我们可以先搜索GET方法：
 
-![img](./media/2.png)
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/media/2.png)
 
 &emsp;&emsp;这里正好搜到一个输入点：
 
-![img](./media/3.png)
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/media/3.png)
 
 &emsp;&emsp;我们已经知道了拦截器是CS_Request，所以只要没调用此方法的输入点，极有可能存在SQL注入漏洞，我们看一下代码：
 
