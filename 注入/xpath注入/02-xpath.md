@@ -460,7 +460,7 @@ if (file_exists('score.xml')) {
 }
 ~~~
 
-<img src="/image-20211013223837420.png" alt="image-20211013223837420" style="zoom:30%;" align="left"/>
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211013223837420.png)
 
 ### 2.1.2. 第二个场景
 
@@ -468,7 +468,7 @@ if (file_exists('score.xml')) {
 
 ![image-20211013230855300](/image-20211013230855300.png)
 
-<img src="/image-20211013231608418.png" alt="image-20211013231608418" style="zoom:30%;" align="left"/>
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211013231608418.png)
 
 # 3. 高级用法
 
@@ -658,7 +658,7 @@ if($result) {
 }
 ~~~
 
-<img src="/image-20211013182254273.png" alt="image-20211013182254273" style="zoom: 30%;" align="left"/>
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211013182254273.png)
 
 
 
