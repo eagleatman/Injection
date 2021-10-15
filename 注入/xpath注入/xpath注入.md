@@ -728,7 +728,7 @@ if(file_exists('t3stt3st.xml')) {
  }
 ~~~
 
-![img](https://github.com/eagleatman/Injection/blob/master/image-20211014001725798.png/image-20211014001725798.png)
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211014001725798.png)
 
 
 
