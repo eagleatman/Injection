@@ -468,7 +468,7 @@ if (file_exists('score.xml')) {
 
 第二个场景使用bwaspp漏洞平台：https://sourceforge.net/projects/bwapp/files/bWAPP/
 
-![image-20211013230855300](/image-20211013230855300.png)
+![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211013230855300.png)
 
 ![img](https://github.com/eagleatman/Injection/blob/master/%E6%B3%A8%E5%85%A5/xpath%E6%B3%A8%E5%85%A5/media/image-20211013231608418.png)
 
@@ -728,7 +728,7 @@ if(file_exists('t3stt3st.xml')) {
  }
 ~~~
 
-![image-20211014001725798](/image-20211014001725798.png)
+![img](https://github.com/eagleatman/Injection/blob/master/image-20211014001725798.png/image-20211014001725798.png)
 
 
 
